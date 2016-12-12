@@ -1,12 +1,14 @@
 <template>
-  <div id="app">
+  <div id="app" v-md-theme="'apptheme'">
     <!--<img src="./assets/logo.png">-->
     <intro></intro>
+    <urlShrinkPlace></urlshrinkplace>
   </div>
 </template>
 
 <script>
 import Intro from './components/Intro'
+import urlShrinkPlace from './components/urlShrinkPlace'
 
 export default {
   name: 'app',
@@ -16,7 +18,8 @@ export default {
     }
   },
   components: {
-    Intro
+    Intro,
+    urlShrinkPlace
   }
 }
 </script>
