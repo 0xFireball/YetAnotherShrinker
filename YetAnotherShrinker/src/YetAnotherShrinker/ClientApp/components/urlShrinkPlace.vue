@@ -11,7 +11,7 @@
             </md-input-container>
             <input type="submit" class="invisible"></input>
           </form>
-          <md-button class="space-v md-raised md-primary" @click="shrinkUrl()">Shrink</md-button>
+          <md-button class="space-v md-raised md-primary" v-on:click="shrinkUrl">Shrink</md-button>
         </div>
       </div>
     </div>
@@ -19,6 +19,14 @@
 </template>
 
 <script>
+import axios from 'axios'
+
+let axiosRequestConfig = {
+  validateStatus: function (status) {
+    return status >= 200 && status < 500
+  }
+}
+
 export default {
   name: 'urlShrinkPlace',
   data () {
@@ -28,7 +36,23 @@ export default {
   },
   methods: {
     shrinkUrl: function () {
+      // shrink the url
+      axios.post('/x/shrink', {
+        url: this.tUrl
+      }, axiosRequestConfig)
+        .then((response) => {
+          if (response.status === 200) {
+            // success
+          } else if (response.status === 405 /* TODO: Replace with BAD REQUEST */) {
 
+          }
+        })
+        .catch((error) => {
+          if (error) {
+            // console.log(error)
+
+          }
+        })
     }
   },
   mounted: function () {
