@@ -1,13 +1,12 @@
 <template>
   <div id="app">
     <!--<img src="./assets/logo.png">-->
-    <h1>{{ appTitle }}</h1>
-    <hello></hello>
+    <intro></intro>
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
+import Intro from './components/Intro'
 
 export default {
   name: 'app',
@@ -17,18 +16,20 @@ export default {
     }
   },
   components: {
-    Hello
+    Intro
   }
 }
 </script>
 
 <style>
   #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
     margin-top: 60px;
+  }
+  body {
+    background: #f7f7f7;
   }
 </style>
