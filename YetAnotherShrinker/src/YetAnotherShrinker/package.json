@@ -6,6 +6,7 @@
     "axios": "^0.15.3",
     "skeleton-css": "^2.0.4",
     "vue": "^2.1.0",
+    "vue-material": "^0.4.1",
     "webpack-hot-middleware": "^2.13.2"
   },
   "devDependencies": {
