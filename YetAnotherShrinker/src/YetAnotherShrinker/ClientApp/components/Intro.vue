@@ -3,40 +3,19 @@
     <h1 class="app-title">{{ appTitle }}</h1>
 
     <div class="container">
+
       <div class="row">
+
         <div class="eight columns offset-by-two">
           <h4>Shrink a URL</h4>
           <form novalidate @submit.stop.prevent="submit">
             <md-input-container>
-              <label>Initial value</label>
-              <md-input v-model="initialValue"></md-input>
+              <label>Target URL</label>
+              <md-input placeholder="http://example.com/" v-model="tUrl"></md-input>
             </md-input-container>
-
-            <md-input-container>
-              <label>With label</label>
-              <md-input placeholder="My nice placeholder"></md-input>
-            </md-input-container>
-
-            <md-input-container md-inline>
-              <label>Inline field</label>
-              <md-input></md-input>
-            </md-input-container>
-
-            <md-input-container>
-              <label>Number</label>
-              <md-input type="number"></md-input>
-            </md-input-container>
-
-            <md-input-container>
-              <label>Textarea</label>
-              <md-textarea></md-textarea>
-            </md-input-container>
-
-            <md-input-container>
-              <label>Disabled</label>
-              <md-input disabled></md-input>
-            </md-input-container>
+            <input type="submit" class="invisible"></input>
           </form>
+          <md-button class="space-v md-raised md-primary" @click="shrinkUrl()">Shrink</md-button>
         </div>
       </div>
     </div>
@@ -49,7 +28,13 @@ export default {
   data () {
     return {
         appTitle: 'YetAnotherShrinker',
-        msgData: ''
+        msgData: '',
+        tUrl: ''
+    }
+  },
+  methods: {
+    shrinkUrl: function () {
+
     }
   },
   mounted: function () {
