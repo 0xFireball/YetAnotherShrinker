@@ -25,6 +25,23 @@ namespace YetAnotherShrinker.Modules
                 };
                 return Response.AsJsonNet(resp);
             });
+
+            Get("/info/{su}", async args =>
+            {
+                var shrunkUrl = await ShrinkerService.RetrieveShrunkUrlAsync((string)args.su);
+                if (shrunkUrl == null)
+                {
+                    return new Response().WithStatusCode(HttpStatusCode.NotFound);
+                }
+                // Probably no analytics on API
+
+                // Redirect user
+                var resp = new ShrinkResponse
+                {
+                    ShrunkUrl = shrunkUrl
+                };
+                return Response.AsJsonNet(resp);
+            });
         }
     }
 }
