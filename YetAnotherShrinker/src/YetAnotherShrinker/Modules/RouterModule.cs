@@ -23,7 +23,8 @@ namespace YetAnotherShrinker.Modules
                     ClientAddress = Request.UserHostAddress,
                     EventId = Guid.NewGuid().ToString("N"),
                     Referrer = Request.Headers.Referrer,
-                    ShrunkUrl = shrunkUrl
+                    ShrunkUrl = shrunkUrl,
+                    Timestamp = DateTime.Now
                 });
 
                 // Redirect user

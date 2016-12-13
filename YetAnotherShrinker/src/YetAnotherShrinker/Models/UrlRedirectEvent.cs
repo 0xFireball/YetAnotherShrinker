@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace YetAnotherShrinker.Models
 {
@@ -15,5 +16,8 @@ namespace YetAnotherShrinker.Models
 
         [JsonProperty("referrer")]
         public string Referrer { get; set; }
+
+        [JsonProperty("timestamp")]
+        public DateTime Timestamp { get; set; }
     }
 }
