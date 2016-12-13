@@ -37,7 +37,7 @@ export default {
       tUrl: '',
       shrinkEnabled: true,
       completedAlert: {
-        content: '',
+        content: '.',
         ok: 'Cool'
       }
     }
@@ -56,7 +56,7 @@ export default {
             // success
             let shrunkUrlInfo = response.data.shrunkUrl
             let shrunkLink = shrunkUrlInfo.shrunkPath
-            let shrunkLinkUrl = window.document.location.href + shrunkLink
+            let shrunkLinkUrl = window.document.location.href + 'r/' + shrunkLink
             vm.completedAlert.content = '<h2>Congratulations!</h2><p>Link has been shrunk!</p><code>' 
               + shrunkLinkUrl 
               + '</code>'
