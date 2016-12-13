@@ -1,5 +1,5 @@
 {
-  "name": "vue-and-nfx",
+  "name": "yetanothershrinker-client",
   "version": "0.0.0",
   "dependencies": {
     "aspnet-webpack": "^1.0.25",
