@@ -7,7 +7,9 @@ import VueRouter from 'vue-router'
 // Routes
 import routes from './routes'
 
-// styles
+// Styles/fonts
+import './assets/styles/global.css'
+import './assets/styles/material-icons.css'
 import './assets/styles/normalize.css'
 import './assets/styles/ffskeleton.css'
 
