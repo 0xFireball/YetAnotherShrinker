@@ -7,18 +7,19 @@ namespace YetAnotherShrinker.Modules
     {
         public RouterModule() : base("/r")
         {
-                Get("{su}", async args =>
+            Get("{su}", async args =>
+            {
+                var targetUrl = await ShrinkerService.RetrieveShrunkUrlAsync((string)args.su);
+                if (targetUrl == null)
                 {
-                    var targetUrl = await ShrinkerService.RetrieveShrunkUrlAsync((string)args.su);
-                    if (targetUrl == null)
-                    {
-                        return new Response().WithStatusCode(HttpStatusCode.NotFound);
-                    }
-                    // Log request, analytics, etc.
+                    return new Response().WithStatusCode(HttpStatusCode.NotFound);
+                }
+                // Log request, analytics, etc.
+                
 
-                    // Redirect user
-                    return Response.AsRedirect(targetUrl.Target);
-                });
+                // Redirect user
+                return Response.AsRedirect(targetUrl.Target);
+            });
         }
     }
 }
