@@ -1,4 +1,7 @@
 ﻿using Nancy;
+using System;
+using YetAnotherShrinker.Models;
+using YetAnotherShrinker.Services.RedirectLogger;
 using YetAnotherShrinker.Services.Shrinker;
 
 namespace YetAnotherShrinker.Modules
@@ -9,16 +12,22 @@ namespace YetAnotherShrinker.Modules
         {
             Get("{su}", async args =>
             {
-                var targetUrl = await ShrinkerService.RetrieveShrunkUrlAsync((string)args.su);
-                if (targetUrl == null)
+                var shrunkUrl = await ShrinkerService.RetrieveShrunkUrlAsync((string)args.su);
+                if (shrunkUrl == null)
                 {
                     return new Response().WithStatusCode(HttpStatusCode.NotFound);
                 }
                 // Log request, analytics, etc.
-                
+                await RedirectLoggerService.LogRedirectAsync(new UrlRedirectEvent
+                {
+                    ClientAddress = Request.UserHostAddress,
+                    EventId = Guid.NewGuid().ToString("N"),
+                    Referrer = Request.Headers.Referrer,
+                    ShrunkUrl = shrunkUrl
+                });
 
                 // Redirect user
-                return Response.AsRedirect(targetUrl.Target);
+                return Response.AsRedirect(shrunkUrl.Target);
             });
         }
     }

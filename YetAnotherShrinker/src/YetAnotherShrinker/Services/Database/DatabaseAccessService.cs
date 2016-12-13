@@ -8,6 +8,7 @@ namespace YetAnotherShrinker.Services.Database
     public static class DatabaseAccessService
     {
         public static string ShrunkUrlCollectionDatabaseKey => "ShrunkUrls";
+        public static string RedirectLogDatabaseKey => "RedirectLog";
 
         private static LiteDatabase _dbInstance;
 
