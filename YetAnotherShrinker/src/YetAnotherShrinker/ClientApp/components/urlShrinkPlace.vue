@@ -65,6 +65,7 @@ export default {
             // bad request
 
           }
+          shrinkEnabled = true
         })
         .catch((error) => {
           if (error) {
