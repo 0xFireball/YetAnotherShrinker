@@ -1,5 +1,5 @@
 <template>
-  <div class="urlShrinkPlace">
+  <div class="urlShrinkInput">
     <div class="container">
       <div class="row">
         <div class="eight columns offset-by-two">
@@ -31,7 +31,7 @@ let axiosRequestConfig = {
 }
 
 export default {
-  name: 'urlShrinkPlace',
+  name: 'urlShrinkInput',
   data () {
     return {
       tUrl: '',

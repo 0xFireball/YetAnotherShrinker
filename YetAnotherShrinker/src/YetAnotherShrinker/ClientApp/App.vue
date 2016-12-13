@@ -2,14 +2,14 @@
   <div id="app" v-md-theme="'apptheme'">
     <!--<img src="./assets/logo.png">-->
     <intro></intro>
-    <urlShrinkPlace></urlShrinkplace>
+    <urlShrinkInput></urlShrinkInput>
     <devCredits></devCredits>
   </div>
 </template>
 
 <script>
 import Intro from './components/Intro'
-import urlShrinkPlace from './components/urlShrinkPlace'
+import urlShrinkPlace from './components/urlShrinkInput'
 import devCredits from './components/devCredits'
 
 export default {
@@ -21,7 +21,7 @@ export default {
   },
   components: {
     Intro,
-    urlShrinkPlace,
+    urlShrinkInput,
     devCredits
   }
 }
