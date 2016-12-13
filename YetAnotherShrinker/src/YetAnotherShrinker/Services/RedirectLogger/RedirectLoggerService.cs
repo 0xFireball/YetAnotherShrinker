@@ -17,7 +17,7 @@ namespace YetAnotherShrinker.Services.RedirectLogger
                 {
                     storedUrls.Insert(redirEvent);
 
-                    storedUrls.EnsureIndex(x => x.EventId, true);
+                    storedUrls.EnsureIndex(x => x.EventId);
                     storedUrls.EnsureIndex(x => x.ShrunkUrl.ShrunkPath);
 
                     trans.Commit();

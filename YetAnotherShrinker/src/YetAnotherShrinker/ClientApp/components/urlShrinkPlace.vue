@@ -15,7 +15,7 @@
         </div>
       </div>
 
-      <md-dialog-alert :md-content-html="successAlert.content" :md-ok-text="successAlert.ok" ref="successDialog">
+      <md-dialog-alert :md-content-html="completedAlert.content" :md-ok-text="completedAlert.ok" ref="successDialog">
       </md-dialog-alert>
     </div>
   </div>
@@ -35,7 +35,7 @@ export default {
   data () {
     return {
       tUrl: '',
-      successAlert: {
+      completedAlert: {
         content: '',
         ok: 'Cool'
       }
@@ -53,7 +53,10 @@ export default {
             // success
             let shrunkUrlInfo = response.data.shrunkUrl
             let shrunkLink = shrunkUrlInfo.shrunkPath
-            vm.successAlert.content = '<h2>Congratulations!</h2><p>Link has been shrunk!</p><code>' + shrunkLink + '</code>'
+            vm.completedAlert.content = '<h2>Congratulations!</h2><p>Link has been shrunk!</p><code>' 
+              + window.document.location.href + '/'
+              + shrunkLink 
+              + '</code>'
             vm.$refs.successDialog.open();
           } else if (response.status === 400) {
             // bad request
