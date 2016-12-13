@@ -4,7 +4,7 @@
       <div class="row">
         <div class="eight columns offset-by-two">
           <h4>Shrink a URL</h4>
-          <form novalidate @submit.stop.prevent="submit">
+          <form novalidate @submit.stop.prevent="shrinkUrl">
             <md-input-container>
               <label>Target URL</label>
               <md-input type="url" placeholder="http://example.com/" v-model="tUrl"></md-input>
