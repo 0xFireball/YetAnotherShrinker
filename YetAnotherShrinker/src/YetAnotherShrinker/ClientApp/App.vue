@@ -1,51 +1,25 @@
 <template>
-  <div id="app" v-md-theme="'apptheme'">
-    <!--<img src="./assets/logo.png">-->
-    <intro></intro>
-    <urlShrinkInput></urlShrinkInput>
-    <devCredits></devCredits>
+  <div v-md-theme="'apptheme'">
+    <toolbar></toolbar>
+
+    <transition name="md-router">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
 <script>
-import Intro from './components/Intro'
-import urlShrinkPlace from './components/urlShrinkInput'
-import devCredits from './components/devCredits'
-
+import Toolbar from './components/Toolbar'
 export default {
-  name: 'app',
-  data: function () {
+  data () {
     return {
-      appTitle: 'YetAnotherShrinker'
     }
   },
   components: {
-    Intro,
-    urlShrinkInput,
-    devCredits
+    Toolbar
   }
 }
 </script>
 
 <style>
-  #app {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-  }
-  
-  body {
-    background: #f7f7f7;
-  }
-  
-  .invisible {
-    display: none;
-  }
-  
-  .space-v {
-    margin-top: 5%;
-    margin-bottom: 5%;
-  }
 </style>

@@ -93,26 +93,26 @@ export default {
           return status >= 200 && status < 500
         }
       }
-      axios.get('/checkauth', axiosConf)
-      .then((response) => {
-        if (response.status === 200) {
-          vm.isLoggedIn = true
-        } else if (response.status === 401 || response.status === 404) {
-          vm.isLoggedIn = false
-        }
-      })
-      .catch(function (error) {
-        if (error) {
-          vm.isLoggedIn = false
-        }
-      })
+      // axios.get('/checkauth', axiosConf)
+      // .then((response) => {
+      //   if (response.status === 200) {
+      //     vm.isLoggedIn = true
+      //   } else if (response.status === 401 || response.status === 404) {
+      //     vm.isLoggedIn = false
+      //   }
+      // })
+      // .catch(function (error) {
+      //   if (error) {
+      //     vm.isLoggedIn = false
+      //   }
+      // })
     }
   },
   created () {
-    this.updateLoggedInStatus()
+    // this.updateLoggedInStatus()
     // then register hook
     this.$router.beforeEach((to, from, next) => {
-      this.updateLoggedInStatus()
+      // this.updateLoggedInStatus()
       next()
     })
   }
