@@ -65,7 +65,7 @@ export default {
             // success
             let shrunkUrlInfo = response.data.shrunkUrl
             let shrunkLink = shrunkUrlInfo.shrunkPath
-            let shrunkLinkUrl = window.document.location.href + 'r/' + shrunkLink
+            let shrunkLinkUrl = window.document.location.origin + '/r/' + shrunkLink
             vm.completedAlert.content = '<h2>Congratulations!</h2><p>Link has been shrunk!</p><code>' 
               + shrunkLinkUrl
               + '</code>'
