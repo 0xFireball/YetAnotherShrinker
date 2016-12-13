@@ -11,7 +11,7 @@
             </md-input-container>
             <input type="submit" class="invisible"></input>
           </form>
-          <md-button class="space-v md-raised md-primary" v-on:click="shrinkUrl">Shrink</md-button>
+          <md-button class="space-v md-raised md-primary" :disabled="!shrinkEnabled" v-on:click="shrinkUrl">Shrink</md-button>
         </div>
       </div>
 
@@ -35,6 +35,7 @@ export default {
   data () {
     return {
       tUrl: '',
+      shrinkEnabled: true,
       completedAlert: {
         content: '',
         ok: 'Cool'
@@ -45,6 +46,8 @@ export default {
     shrinkUrl: function () {
       // shrink the url
       let vm = this
+      vm.shrinkEnabled = false
+      vm.completedAlert.content = '<h3>Loading</h3>'
       axios.post('/x/shrink', {
         url: this.tUrl
       }, axiosRequestConfig)
@@ -53,9 +56,9 @@ export default {
             // success
             let shrunkUrlInfo = response.data.shrunkUrl
             let shrunkLink = shrunkUrlInfo.shrunkPath
+            let shrunkLinkUrl = window.document.location.href + shrunkLink
             vm.completedAlert.content = '<h2>Congratulations!</h2><p>Link has been shrunk!</p><code>' 
-              + window.document.location.href + '/'
-              + shrunkLink 
+              + shrunkLinkUrl 
               + '</code>'
             vm.$refs.successDialog.open();
           } else if (response.status === 400) {
@@ -68,6 +71,7 @@ export default {
             // console.log(error)
 
           }
+          shrinkEnabled = true
         })
     }
   },
