@@ -5,6 +5,6 @@ namespace YetAnotherShrinker.Models
     public class ShrinkResponse
     {
         [JsonProperty("shrunkUrl")]
-        public string ShrunkUrl { get; set; }
+        public ShrunkUrl ShrunkUrl { get; set; }
     }
 }
