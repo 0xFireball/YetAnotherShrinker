@@ -7,7 +7,7 @@
           <form novalidate @submit.stop.prevent="submit">
             <md-input-container>
               <label>Target URL</label>
-              <md-input placeholder="http://example.com/" v-model="tUrl"></md-input>
+              <md-input type="url" placeholder="http://example.com/" v-model="tUrl"></md-input>
             </md-input-container>
             <input type="submit" class="invisible"></input>
           </form>
@@ -45,7 +45,7 @@ export default {
             // success
           } else if (response.status === 400) {
             // bad request
-            
+
           }
         })
         .catch((error) => {

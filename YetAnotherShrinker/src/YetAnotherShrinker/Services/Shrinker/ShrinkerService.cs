@@ -17,7 +17,7 @@ namespace YetAnotherShrinker.Services.Shrinker
         {
             return await Task.Run(() =>
             {
-                var db = new DatabaseAccessService().OpenOrCreateDefault();
+                var db = DatabaseAccessService.OpenOrCreateDefault();
                 var storedUrls = db.GetCollection<ShrunkUrl>(DatabaseAccessService.ShrunkUrlCollectionDatabaseKey);
                 return storedUrls.FindOne(x => x.Target == target);
             });
@@ -26,7 +26,7 @@ namespace YetAnotherShrinker.Services.Shrinker
         {
             return await Task.Run(() =>
             {
-                var db = new DatabaseAccessService().OpenOrCreateDefault();
+                var db = DatabaseAccessService.OpenOrCreateDefault();
                 var storedUrls = db.GetCollection<ShrunkUrl>(DatabaseAccessService.ShrunkUrlCollectionDatabaseKey);
                 return storedUrls.FindOne(x => x.ShrunkPath == shrunkPath);
             });
@@ -34,7 +34,7 @@ namespace YetAnotherShrinker.Services.Shrinker
 
         public static async Task<ShrunkUrl> ShrinkUrlAsync(ShrinkRequest req)
         {
-            var db = new DatabaseAccessService().OpenOrCreateDefault();
+            var db = DatabaseAccessService.OpenOrCreateDefault();
             // Return existing URL if it exists
             var existingUrl = await RetrieveShrunkUrlByTargetAsync(req.Url);
             if (existingUrl != null) return existingUrl;
