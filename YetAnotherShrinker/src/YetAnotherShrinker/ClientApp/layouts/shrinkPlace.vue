@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import Intro from './components/Intro'
-import urlShrinkInput from './components/urlShrinkInput'
-import devCredits from './components/devCredits'
+import Intro from '../components/Intro'
+import urlShrinkInput from '../components/urlShrinkInput'
+import devCredits from '../components/devCredits'
 
 export default {
   data () {
