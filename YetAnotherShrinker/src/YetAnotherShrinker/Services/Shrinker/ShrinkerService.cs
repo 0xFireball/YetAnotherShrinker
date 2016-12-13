@@ -1,10 +1,7 @@
-﻿using YetAnotherShrinker.Services.Database;
-using YetAnotherShrinker.Utilities;
-using System;
-using System.Collections;
-using System.Security;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using YetAnotherShrinker.Models;
+using YetAnotherShrinker.Services.Database;
+using YetAnotherShrinker.Utilities;
 
 namespace YetAnotherShrinker.Services.Shrinker
 {
@@ -22,6 +19,7 @@ namespace YetAnotherShrinker.Services.Shrinker
                 return storedUrls.FindOne(x => x.Target == target);
             });
         }
+
         public static async Task<ShrunkUrl> RetrieveShrunkUrlAsync(string shrunkPath)
         {
             return await Task.Run(() =>
