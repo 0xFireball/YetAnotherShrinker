@@ -7,7 +7,7 @@ namespace YetAnotherShrinker.Services.Database
     /// </summary>
     public class DatabaseAccessService
     {
-        public static string UsersCollectionDatabaseKey => "Users";
+        public static string ShrunkUrlCollectionDatabaseKey => "ShrunkUrls";
 
         private static LiteDatabase _dbInstance;
 

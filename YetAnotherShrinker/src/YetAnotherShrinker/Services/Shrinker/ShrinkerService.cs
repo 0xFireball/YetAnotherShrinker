@@ -19,7 +19,7 @@ namespace YetAnotherShrinker.Services.Shrinker
             {
                 RegisteredUser storedUserRecord = null;
                 var db = new DatabaseAccessService().OpenOrCreateDefault();
-                var registeredUsers = db.GetCollection<RegisteredUser>(DatabaseAccessService.UsersCollectionDatabaseKey);
+                var registeredUsers = db.GetCollection<RegisteredUser>(DatabaseAccessService.ShrunkUrlCollectionDatabaseKey);
                 var userRecord = registeredUsers.FindOne(u => u.Username == username);
                 storedUserRecord = userRecord;
 
@@ -31,97 +31,39 @@ namespace YetAnotherShrinker.Services.Shrinker
             });
         }
 
-        internal static Task ShrinkUrlAsync(ShrinkRequest req)
+        public static async Task<ShrunkUrl> RetrieveShrunkUrlAsync(string shrunkPath)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() =>
+            {
+                var db = new DatabaseAccessService().OpenOrCreateDefault();
+                var storedUrls = db.GetCollection<ShrunkUrl>(DatabaseAccessService.ShrunkUrlCollectionDatabaseKey);
+                return storedUrls.FindOne(x => x.ShrunkPath == shrunkPath);
+            });
         }
 
-        public static RegisteredUser FindUserByApiKeyAsync(string apiKey)
+        public static async Task<ShrunkUrl> ShrinkUrlAsync(ShrinkRequest req)
         {
-            RegisteredUser storedUserRecord = null;
             var db = new DatabaseAccessService().OpenOrCreateDefault();
-            var registeredUsers = db.GetCollection<RegisteredUser>(DatabaseAccessService.UsersCollectionDatabaseKey);
-            var userRecord = registeredUsers.FindOne(u => u.ApiKey == apiKey);
-            storedUserRecord = userRecord;
-
-            if (storedUserRecord == null)
+            var storedUrls = db.GetCollection<ShrunkUrl>(DatabaseAccessService.ShrunkUrlCollectionDatabaseKey);
+            var newShrunkUrl = new ShrunkUrl
             {
-                return null;
-            }
-            return storedUserRecord;
-        }
-
-        public static bool UpdateUserInDatabase(RegisteredUser currentUser)
-        {
-            bool result;
-            var db = new DatabaseAccessService().OpenOrCreateDefault();
-            var registeredUsers = db.GetCollection<RegisteredUser>(DatabaseAccessService.UsersCollectionDatabaseKey);
-            using (var trans = db.BeginTrans())
+                Target = req.Url,
+                ShrunkPath = StringUtils.SecureRandomString(7)
+            };
+            await Task.Run(() =>
             {
-                result = registeredUsers.Update(currentUser);
-                trans.Commit();
-            }
-            return result;
-        }
-
-        /// <summary>
-        /// Attempts to register a new user. Only the username is validated, it is expected that other fields have already been validated!
-        /// </summary>
-        public static async Task<RegisteredUser> RegisterUserAsync(RegistrationRequest regRequest)
-        {
-            return await Task.Run(() => RegisterUser(regRequest));
-        }
-
-        private static RegisteredUser RegisterUser(RegistrationRequest regRequest)
-        {
-            RegisteredUser newUserRecord = null;
-            if (FindUserByUsernameAsync(regRequest.Username).GetAwaiter().GetResult() != null)
-            {
-                //BAD! Another conflicting user exists!
-                throw new SecurityException("A user with the same username already exists!");
-            }
-            var db = new DatabaseAccessService().OpenOrCreateDefault();
-            var registeredUsers = db.GetCollection<RegisteredUser>(DatabaseAccessService.UsersCollectionDatabaseKey);
-            using (var trans = db.BeginTrans())
-            {
-                //Calculate cryptographic info
-                var cryptoConf = PasswordCryptoConfiguration.CreateDefault();
-                var pwSalt = AuthCryptoHelper.GetRandomSalt(64);
-                var encryptedPassword = AuthCryptoHelper.CalculateUserPasswordHash(regRequest.Password, pwSalt, cryptoConf);
-                // Create user
-                newUserRecord = new RegisteredUser
+                using (var trans = db.BeginTrans())
                 {
-                    Identifier = Guid.NewGuid().ToString(),
-                    Username = regRequest.Username,
-                    PhoneNumber = regRequest.PhoneNumber,
-                    ApiKey = StringUtils.SecureRandomString(40),
-                    CryptoSalt = pwSalt,
-                    PasswordCryptoConf = cryptoConf,
-                    PasswordKey = encryptedPassword,
-                };
-                // Add the user to the database
-                registeredUsers.Insert(newUserRecord);
+                    // save new url
 
-                // Index database
-                registeredUsers.EnsureIndex(x => x.Identifier);
-                registeredUsers.EnsureIndex(x => x.ApiKey);
-                registeredUsers.EnsureIndex(x => x.Username);
+                    storedUrls.Insert(newShrunkUrl);
+                    storedUrls.EnsureIndex(x => x.ShrunkPath);
+                    storedUrls.EnsureIndex(x => x.Target);
 
-                trans.Commit();
-            }
-            return newUserRecord;
-        }
-
-        public static async Task<bool> CheckPasswordAsync(string password, RegisteredUser userRecord)
-        {
-            return await Task.Run(() => CheckPassword(password, userRecord));
-        }
-
-        private static bool CheckPassword(string password, RegisteredUser userRecord)
-        {
-            //Calculate hash and compare
-            var pwKey = AuthCryptoHelper.CalculateUserPasswordHash(password, userRecord.CryptoSalt, userRecord.PasswordCryptoConf);
-            return StructuralComparisons.StructuralEqualityComparer.Equals(pwKey, userRecord.PasswordKey);
+                    trans.Commit();
+                }
+            });
+            return newShrunkUrl;
         }
     }
 }
