@@ -14,6 +14,9 @@
           <md-button class="space-v md-raised md-primary" v-on:click="shrinkUrl">Shrink</md-button>
         </div>
       </div>
+
+      <md-dialog-alert :md-content-html="successAlert.content" :md-ok-text="successAlert.ok" ref="successDialog">
+      </md-dialog-alert>
     </div>
   </div>
 </template>
@@ -31,18 +34,27 @@ export default {
   name: 'urlShrinkPlace',
   data () {
     return {
-      tUrl: ''
+      tUrl: '',
+      successAlert: {
+        content: '',
+        ok: 'Cool'
+      }
     }
   },
   methods: {
     shrinkUrl: function () {
       // shrink the url
+      let vm = this
       axios.post('/x/shrink', {
         url: this.tUrl
       }, axiosRequestConfig)
         .then((response) => {
           if (response.status === 200) {
             // success
+            let shrunkUrlInfo = response.data.shrunkUrl
+            let shrunkLink = shrunkUrlInfo.shrunkPath
+            vm.successAlert.content = '<h2>Congratulations!</h2><p>Link has been shrunk!</p><code>' + shrunkLink + '</code>'
+            vm.$refs.successDialog.open();
           } else if (response.status === 400) {
             // bad request
 
