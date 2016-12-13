@@ -15,7 +15,10 @@
         </div>
       </div>
 
-      <md-dialog-alert :md-content-html="completedAlert.content" :md-ok-text="completedAlert.ok" ref="successDialog">
+      <md-dialog-alert 
+        :md-content-html="completedAlert.content"
+        :md-ok-text="completedAlert.ok"
+        ref="successDialog">
       </md-dialog-alert>
     </div>
   </div>
@@ -63,14 +66,14 @@ export default {
             vm.$refs.successDialog.open();
           } else if (response.status === 400) {
             // bad request
-
+            vm.completedAlert.content = '<h2>Error</h2><p>Please make sure the URL is valid.</p>'
+            vm.$refs.successDialog.open();
           }
           vm.shrinkEnabled = true
         })
         .catch((error) => {
           if (error) {
             // console.log(error)
-
           }
           vm.shrinkEnabled = true
         })
