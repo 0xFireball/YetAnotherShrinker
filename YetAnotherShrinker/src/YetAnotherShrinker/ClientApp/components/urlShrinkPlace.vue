@@ -84,6 +84,8 @@ export default {
         .catch((error) => {
           if (error) {
             // console.log(error)
+            vm.completedAlert.content = '<h2>Error</h2><p>Error communicating with server.</p>'
+            vm.$refs.completedDialog.open();
           }
           vm.shrinkEnabled = true
         })
