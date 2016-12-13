@@ -13,24 +13,15 @@ namespace YetAnotherShrinker.Services.Shrinker
     /// </summary>
     public static class ShrinkerService
     {
-        public static async Task<RegisteredUser> FindUserByUsernameAsync(string username)
+        public static async Task<ShrunkUrl> RetrieveShrunkUrlByTargetAsync(string target)
         {
             return await Task.Run(() =>
             {
-                RegisteredUser storedUserRecord = null;
                 var db = new DatabaseAccessService().OpenOrCreateDefault();
-                var registeredUsers = db.GetCollection<RegisteredUser>(DatabaseAccessService.ShrunkUrlCollectionDatabaseKey);
-                var userRecord = registeredUsers.FindOne(u => u.Username == username);
-                storedUserRecord = userRecord;
-
-                if (storedUserRecord == null)
-                {
-                    return null;
-                }
-                return storedUserRecord;
+                var storedUrls = db.GetCollection<ShrunkUrl>(DatabaseAccessService.ShrunkUrlCollectionDatabaseKey);
+                return storedUrls.FindOne(x => x.Target == target);
             });
         }
-
         public static async Task<ShrunkUrl> RetrieveShrunkUrlAsync(string shrunkPath)
         {
             return await Task.Run(() =>
@@ -44,6 +35,9 @@ namespace YetAnotherShrinker.Services.Shrinker
         public static async Task<ShrunkUrl> ShrinkUrlAsync(ShrinkRequest req)
         {
             var db = new DatabaseAccessService().OpenOrCreateDefault();
+            // Return existing URL if it exists
+            var existingUrl = await RetrieveShrunkUrlByTargetAsync(req.Url);
+            if (existingUrl != null) return existingUrl;
             var storedUrls = db.GetCollection<ShrunkUrl>(DatabaseAccessService.ShrunkUrlCollectionDatabaseKey);
             var newShrunkUrl = new ShrunkUrl
             {
