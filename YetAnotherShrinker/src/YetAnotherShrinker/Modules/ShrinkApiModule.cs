@@ -1,6 +1,8 @@
 ﻿using Nancy;
 using Nancy.ModelBinding;
 using YetAnotherShrinker.Models;
+using YetAnotherShrinker.Services.Shrinker;
+using YetAnotherShrinker.Utilities;
 
 namespace YetAnotherShrinker.Modules
 {
@@ -8,10 +10,20 @@ namespace YetAnotherShrinker.Modules
     {
         public ShrinkApiModule() : base("/x")
         {
-            Post("/shrink" _ =>
+            Post("/shrink", async _ =>
             {
                 var req = this.Bind<ShrinkRequest>();
-                return Response.AsJsonNet();
+                // Validate request
+                if (!StringUtils.IsValidUrl(req.Url))
+                {
+                    return new Response().WithStatusCode(HttpStatusCode.BadRequest);
+                }
+                var shrunkUrl = await ShrinkerService.ShrinkUrlAsync(req);
+                var resp = new ShrinkResponse
+                {
+                    ShrunkUrl = shrunkUrl
+                };
+                return Response.AsJsonNet(resp);
             });
         }
     }

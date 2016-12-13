@@ -43,8 +43,9 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             // success
-          } else if (response.status === 405 /* TODO: Replace with BAD REQUEST */) {
-
+          } else if (response.status === 400) {
+            // bad request
+            
           }
         })
         .catch((error) => {
