@@ -67,12 +67,16 @@ export default {
             let shrunkLink = shrunkUrlInfo.shrunkPath
             let shrunkLinkUrl = window.document.location.href + 'r/' + shrunkLink
             vm.completedAlert.content = '<h2>Congratulations!</h2><p>Link has been shrunk!</p><code>' 
-              + shrunkLinkUrl 
+              + shrunkLinkUrl
               + '</code>'
             vm.$refs.completedDialog.open();
           } else if (response.status === 400) {
             // bad request
             vm.completedAlert.content = '<h2>Error</h2><p>Please make sure the URL is valid.</p>'
+            vm.$refs.completedDialog.open();
+          } else {
+            // wtf?
+            vm.completedAlert.content = '<h2>Error</h2><p>Unrecognized response from server.</p>'
             vm.$refs.completedDialog.open();
           }
           vm.shrinkEnabled = true
