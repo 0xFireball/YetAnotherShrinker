@@ -15,7 +15,7 @@ namespace YetAnotherShrinker.Services.Database
         {
             if (_dbInstance == null)
             {
-                _dbInstance = new LiteDatabase("betago_srv.lidb");
+                _dbInstance = new LiteDatabase("yas_db.lidb");
             }
             return _dbInstance;
         }

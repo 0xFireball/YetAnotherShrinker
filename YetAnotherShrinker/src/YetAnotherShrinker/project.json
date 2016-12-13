@@ -1,4 +1,8 @@
 ﻿{
+  "title": "YetAnotherShrinker",
+  "copyright": "Copyright (c) 2016 0xFireball. All Rights Reserved.",
+  "description": "A URL Shrinker service",
+  "language": "en",
   "dependencies": {
     "Microsoft.NETCore.App": {
       "version": "1.1.0",
