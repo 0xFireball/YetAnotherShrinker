@@ -65,14 +65,14 @@ export default {
             // bad request
 
           }
-          shrinkEnabled = true
+          vm.shrinkEnabled = true
         })
         .catch((error) => {
           if (error) {
             // console.log(error)
 
           }
-          shrinkEnabled = true
+          vm.shrinkEnabled = true
         })
     }
   },
