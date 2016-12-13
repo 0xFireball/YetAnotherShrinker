@@ -15,10 +15,7 @@
         </div>
       </div>
 
-      <md-dialog-alert 
-        :md-content-html="completedAlert.content"
-        :md-ok-text="completedAlert.ok"
-        ref="successDialog">
+      <md-dialog-alert :md-content-html="completedAlert.content" :md-ok-text="completedAlert.ok" ref="completedDialog">
       </md-dialog-alert>
     </div>
   </div>
@@ -51,8 +48,17 @@ export default {
       let vm = this
       vm.shrinkEnabled = false
       vm.completedAlert.content = '<h3>Loading</h3>'
+
+      // basic validate
+      if (!vm.tUrl) {
+        vm.completedAlert.content = '<h2>Error</h2><p>URL cannot be empty.</p>'
+        vm.$refs.completedDialog.open();
+        vm.shrinkEnabled = true
+        return
+      }
+
       axios.post('/x/shrink', {
-        url: this.tUrl
+        url: vm.tUrl
       }, axiosRequestConfig)
         .then((response) => {
           if (response.status === 200) {
@@ -63,11 +69,11 @@ export default {
             vm.completedAlert.content = '<h2>Congratulations!</h2><p>Link has been shrunk!</p><code>' 
               + shrunkLinkUrl 
               + '</code>'
-            vm.$refs.successDialog.open();
+            vm.$refs.completedDialog.open();
           } else if (response.status === 400) {
             // bad request
             vm.completedAlert.content = '<h2>Error</h2><p>Please make sure the URL is valid.</p>'
-            vm.$refs.successDialog.open();
+            vm.$refs.completedDialog.open();
           }
           vm.shrinkEnabled = true
         })
