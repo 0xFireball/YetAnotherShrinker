@@ -9,14 +9,12 @@
 
 <script>
 import Intro from './components/Intro'
-import urlShrinkPlace from './components/urlShrinkInput'
+import urlShrinkInput from './components/urlShrinkInput'
 import devCredits from './components/devCredits'
 
 export default {
-  name: 'app',
-  data: function () {
-    return {
-      appTitle: 'YetAnotherShrinker'
+  data () {
+    return {   
     }
   },
   components: {

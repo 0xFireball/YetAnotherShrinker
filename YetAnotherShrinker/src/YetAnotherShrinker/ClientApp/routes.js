@@ -1,15 +1,15 @@
 
-import Landing from './layouts/Landing'
+import ShrinkPlace from './layouts/ShrinkPlace'
 import NotFound from './layouts/NotFound'
 
 const main = [
   {
     path: '/',
     name: 'landing',
-    component: Landing
+    component: ShrinkPlace
   },
   {
-    path: '/landing',
+    path: '/home',
     redirect: '/'
   }
 ]
