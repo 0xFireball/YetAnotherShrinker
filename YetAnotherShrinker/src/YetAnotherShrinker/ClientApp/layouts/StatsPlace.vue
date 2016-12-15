@@ -1,15 +1,12 @@
 <template>
-  <div class="shrink-layout">
-    <!--<img src="./assets/logo.png">-->
+  <div class="stats-layout">
     <intro></intro>
-    <urlShrinkInput></urlShrinkInput>
     <devCredits></devCredits>
   </div>
 </template>
 
 <script>
   import Intro from '../components/Intro'
-  import urlShrinkInput from '../components/urlShrinkInput'
   import devCredits from '../components/devCredits'
 
   export default {
@@ -19,14 +16,13 @@
     },
     components: {
       Intro,
-      urlShrinkInput,
       devCredits
     }
   }
 </script>
 
 <style scoped>
-  .shrink-layout {
+  .stats-layout {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
