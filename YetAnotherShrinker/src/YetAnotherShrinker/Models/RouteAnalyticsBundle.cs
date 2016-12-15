@@ -5,6 +5,12 @@ namespace YetAnotherShrinker.Models
 {
     public class RouteAnalyticsBundle
     {
+        [JsonProperty("daySortedEvents")]
+        public List<UrlRedirectEvent>[] DaySortedEvents { get; set; }
+
+        [JsonProperty("daySpan")]
+        public int DaySpan { get; set; }
+
         [JsonProperty("redirectEvents")]
         public IEnumerable<UrlRedirectEvent> RedirectEvents { get; set; }
 
