@@ -40,8 +40,11 @@
               }],
               xAxes: [{
                 ticks: {
-                  stepSize: 1
-                }
+                  stepSize: 1,
+                  min: 0,
+                  max: 7
+                },
+                display: true
               }]
             }
           }
@@ -79,12 +82,12 @@
             // success
             let analyticsBundle = response.data
             vm.stats.data = {
+              labels: ['6d ago', '5d ago', '4d ago', '3d ago', '2d ago', '1d ago', 'today'],
               datasets: [
                 {
                   label: 'Daily Traffic (Visits)',
                   backgroundColor: '#f87979',
-                  // data: analyticsBundle.daySortedEvents.map(e => e.length)
-                  data: [1, 2, 3, 5, 2, 6, 2, 4]
+                  data: analyticsBundle.daySortedEvents.map(e => e.length)
                 }
               ]
             }
@@ -113,8 +116,7 @@
 </script>
 
 <style scoped>
-/*.chart-host {
-  width: 100%;
-  height: 100%;
-}*/
+#line-chart {
+  height: 400px;
+}
 </style>
