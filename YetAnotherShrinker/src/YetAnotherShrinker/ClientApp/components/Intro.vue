@@ -1,18 +1,20 @@
 <template>
   <div class="intro">
-    <h1 class="app-title">{{ appTitle }}</h1>
+    <div class="container">
+      <h1 class="app-title">{{ appTitle }}</h1>
+    </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'intro',
-  data () {
-    return {
-      appTitle: 'YetAnotherShrinker',
+  export default {
+    name: 'intro',
+    data() {
+      return {
+        appTitle: 'YetAnotherShrinker',
+      }
     }
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -22,7 +24,7 @@ export default {
   }
   
   .app-title {
-    font-size: 6rem;
+    font-size: 4rem;
     letter-spacing: 0.1rem;
     font-weight: 300;
   }
