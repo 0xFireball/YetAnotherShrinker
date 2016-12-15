@@ -3,7 +3,6 @@ using Nancy.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using YetAnotherShrinker.Models;
 using YetAnotherShrinker.Services.RedirectLogger;
 using YetAnotherShrinker.Services.Shrinker;
@@ -61,10 +60,10 @@ namespace YetAnotherShrinker.Modules
                 int daySpan = 7;
                 var loggedRedirects = await RedirectLoggerService.GetRedirectHistory(shrunkUrl, DateTime.Now.Subtract(TimeSpan.FromDays(daySpan)));
                 var daySortedEvents = new List<UrlRedirectEvent>[daySpan];
-                for (int daysFromStart = 0; daysFromStart < daySpan; daysFromStart++)
+                for (int daysFromStart = 1; daysFromStart <= daySpan; daysFromStart++)
                 {
                     var checkingDate = DateTime.Now.Subtract(TimeSpan.FromDays(daySpan - daysFromStart));
-                    daySortedEvents[daysFromStart] = new List<UrlRedirectEvent>(loggedRedirects.Where(x => x.Timestamp.Day == checkingDate.Day));
+                    daySortedEvents[daysFromStart - 1] = new List<UrlRedirectEvent>(loggedRedirects.Where(x => x.Timestamp.Day == checkingDate.Day));
                 }
                 var resp = new RouteAnalyticsBundle
                 {

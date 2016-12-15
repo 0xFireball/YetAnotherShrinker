@@ -9,12 +9,21 @@
         </div>
       </div>
     </div>
+    <md-dialog-alert :md-content-html="completedAlert.content" :md-ok-text="completedAlert.ok" ref="completedDialog">
+    </md-dialog-alert>
   </div>
 </template>
 
 <script>
 
   import statsLineGraph from './statsLineGraph'
+  import axios from 'axios'
+
+  let axiosRequestConfig = {
+    validateStatus: function (status) {
+      return status >= 200 && status < 500
+    }
+  }
 
   export default {
     data() {
@@ -22,8 +31,24 @@
         stats: {
           data: {},
           options: {
-            maintainAspectRatio: false
+            maintainAspectRatio: false,
+            scales: {
+              yAxes: [{
+                ticks: {
+                  stepSize: 1
+                }
+              }],
+              xAxes: [{
+                ticks: {
+                  stepSize: 1
+                }
+              }]
+            }
           }
+        },
+        completedAlert: {
+          content: '.',
+          ok: 'Cool'
         }
       }
     },
@@ -35,16 +60,54 @@
       // get shrink route
       let shrinkRoute = vm.$route.params.sroute
       // use dummy data
-      this.stats.data = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        datasets: [
-          {
-            label: 'GitHub Commits',
-            backgroundColor: '#f87979',
-            data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
+      // this.stats.data = {
+      //   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      //   datasets: [
+      //     {
+      //       label: 'GitHub Commits',
+      //       backgroundColor: '#f87979',
+      //       data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
+      //     }
+      //   ]
+      // }
+
+      // get data from server
+      axios.get('/x/stats/' + shrinkRoute,
+        axiosRequestConfig)
+        .then((response) => {
+          if (response.status === 200) {
+            // success
+            let analyticsBundle = response.data
+            vm.stats.data = {
+              datasets: [
+                {
+                  label: 'Daily Traffic (Visits)',
+                  backgroundColor: '#f87979',
+                  // data: analyticsBundle.daySortedEvents.map(e => e.length)
+                  data: [1, 2, 3, 5, 2, 6, 2, 4]
+                }
+              ]
+            }
+            console.log(analyticsBundle.daySortedEvents)
+          } else if (response.status === 400) {
+            // bad request
+            vm.completedAlert.content = '<h2>Error</h2><p>Please make sure the URL is valid.</p>'
+            vm.$refs.completedDialog.open();
+          } else {
+            // wtf?
+            vm.completedAlert.content = '<h2>Error</h2><p>Unrecognized response from server.</p>'
+            vm.$refs.completedDialog.open();
           }
-        ]
-      }
+          vm.shrinkEnabled = true
+        })
+        .catch((error) => {
+          if (error) {
+            // console.log(error)
+            vm.completedAlert.content = '<h2>Error</h2><p>Error communicating with server.</p>'
+            vm.$refs.completedDialog.open();
+          }
+          vm.shrinkEnabled = true
+        })
     }
   }
 </script>
