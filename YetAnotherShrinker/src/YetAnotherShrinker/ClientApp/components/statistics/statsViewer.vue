@@ -1,6 +1,14 @@
 <template>
   <div class="stats-viewer">
-    <statsLineGraph :data="stats.data"></statsLineGraph>
+    <div class="container">
+      <div class="row">
+        <div class="twelve columns">
+          <div class="chart-host">
+            <statsLineGraph :chartData="stats.data" :options="stats.options"></statsLineGraph>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -12,7 +20,10 @@
     data() {
       return {
         stats: {
-          data: {}
+          data: {},
+          options: {
+            maintainAspectRatio: false
+          }
         }
       }
     },
@@ -39,4 +50,8 @@
 </script>
 
 <style scoped>
+/*.chart-host {
+  width: 100%;
+  height: 100%;
+}*/
 </style>

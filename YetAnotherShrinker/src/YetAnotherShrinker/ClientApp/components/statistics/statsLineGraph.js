@@ -2,7 +2,7 @@ import { Line, reactiveProp } from 'vue-chartjs'
 
 export default Line.extend({
   mixins: [reactiveProp],
-  props: ['chartData', 'options'],
+  props: ['options'],
   mounted () {
     // Overwriting base render method with actual data.
 
