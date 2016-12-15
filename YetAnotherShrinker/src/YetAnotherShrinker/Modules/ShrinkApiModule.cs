@@ -76,10 +76,5 @@ namespace YetAnotherShrinker.Modules
                 return Response.AsJsonNet(resp);
             });
         }
-
-        private void Get(string v, Func<dynamic, Task<Response>> p)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
