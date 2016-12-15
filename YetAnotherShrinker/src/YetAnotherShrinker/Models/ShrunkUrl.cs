@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace YetAnotherShrinker.Models
 {
@@ -9,5 +10,8 @@ namespace YetAnotherShrinker.Models
 
         [JsonProperty("shrunkPath")]
         public string ShrunkPath { get; set; }
+
+        [JsonProperty("createdTimestamp")]
+        public DateTime CreatedTimestamp { get; set; }
     }
 }

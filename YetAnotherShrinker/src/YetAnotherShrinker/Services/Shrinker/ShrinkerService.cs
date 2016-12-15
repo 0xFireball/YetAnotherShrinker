@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using YetAnotherShrinker.Models;
 using YetAnotherShrinker.Services.Database;
 using YetAnotherShrinker.Utilities;
@@ -40,7 +41,8 @@ namespace YetAnotherShrinker.Services.Shrinker
             var newShrunkUrl = new ShrunkUrl
             {
                 Target = req.Url,
-                ShrunkPath = StringUtils.SecureRandomString(7)
+                ShrunkPath = StringUtils.SecureRandomString(7),
+                CreatedTimestamp = DateTime.Now
             };
             await Task.Run(() =>
             {
