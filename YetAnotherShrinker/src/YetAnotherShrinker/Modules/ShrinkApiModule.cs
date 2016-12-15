@@ -1,6 +1,7 @@
 ﻿using Nancy;
 using Nancy.ModelBinding;
 using YetAnotherShrinker.Models;
+using YetAnotherShrinker.Services.RedirectLogger;
 using YetAnotherShrinker.Services.Shrinker;
 using YetAnotherShrinker.Utilities;
 
@@ -52,7 +53,12 @@ namespace YetAnotherShrinker.Modules
                 // Fetch analytics
 
                 // Dump analytics data
-                var resp = 
+                var loggedRedirects = await RedirectLoggerService.GetRedirectHistory(shrunkUrl, shrunkUrl.CreatedTimestamp);
+                var resp = new RouteAnalyticsBundle
+                {
+                    RedirectEvents = loggedRedirects,
+                    ShrunkUrl = shrunkUrl
+                };
                 return Response.AsJsonNet(resp);
             });
         }
