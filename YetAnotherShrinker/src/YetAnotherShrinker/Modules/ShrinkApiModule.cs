@@ -1,5 +1,6 @@
 ﻿using Nancy;
 using Nancy.ModelBinding;
+using System;
 using YetAnotherShrinker.Models;
 using YetAnotherShrinker.Services.RedirectLogger;
 using YetAnotherShrinker.Services.Shrinker;
@@ -50,10 +51,11 @@ namespace YetAnotherShrinker.Modules
                 {
                     return new Response().WithStatusCode(HttpStatusCode.NotFound);
                 }
-                // Fetch analytics
 
                 // Dump analytics data
-                var loggedRedirects = await RedirectLoggerService.GetRedirectHistory(shrunkUrl, shrunkUrl.CreatedTimestamp);
+                //var loggedRedirects = await RedirectLoggerService.GetRedirectHistory(shrunkUrl, shrunkUrl.CreatedTimestamp);
+                // Last 7 days
+                var loggedRedirects = await RedirectLoggerService.GetRedirectHistory(shrunkUrl, DateTime.Now.Subtract(TimeSpan.FromDays(7)));
                 var resp = new RouteAnalyticsBundle
                 {
                     RedirectEvents = loggedRedirects,
