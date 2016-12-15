@@ -4,7 +4,7 @@
       <div class="row">
         <div class="twelve columns">
           <div class="chart-host">
-            <statsLineGraph :chartData="stats.data" :options="stats.options"></statsLineGraph>
+            <canvas id="trafficChart" width="400" height="400"></canvas>
           </div>
         </div>
       </div>
@@ -16,8 +16,8 @@
 
 <script>
 
-  import statsLineGraph from './statsLineGraph'
   import axios from 'axios'
+  import Chart from 'chart.js'
 
   let axiosRequestConfig = {
     validateStatus: function (status) {
@@ -55,9 +55,6 @@
         }
       }
     },
-    components: {
-      statsLineGraph
-    },
     mounted() {
       let vm = this
       // get shrink route
@@ -81,6 +78,7 @@
           if (response.status === 200) {
             // success
             let analyticsBundle = response.data
+            // set up charts
             vm.stats.data = {
               labels: ['6d ago', '5d ago', '4d ago', '3d ago', '2d ago', '1d ago', 'today'],
               datasets: [
@@ -92,6 +90,12 @@
               ]
             }
             console.log(analyticsBundle.daySortedEvents)
+            var ctx = "trafficChart"
+            var myLineChart = Chart.Line(ctx, {
+              data: vm.stats.data,
+              options: vm.stats.options
+            });
+
           } else if (response.status === 400) {
             // bad request
             vm.completedAlert.content = '<h2>Error</h2><p>Please make sure the URL is valid.</p>'
