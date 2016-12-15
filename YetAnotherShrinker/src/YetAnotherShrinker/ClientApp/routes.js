@@ -10,7 +10,7 @@ const main = [
     component: ShrinkPlace
   },
   {
-    path: '/s/:path',
+    path: '/s/:sroute',
     name: 'statsview',
     component: StatsPlace
   },

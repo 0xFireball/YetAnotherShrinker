@@ -1,12 +1,14 @@
 <template>
   <div class="stats-layout">
     <intro></intro>
+    <statsViewer></statsViewer>
     <devCredits></devCredits>
   </div>
 </template>
 
 <script>
   import Intro from '../components/Intro'
+  import statsViewer from '../components/statistics/statsViewer'
   import devCredits from '../components/devCredits'
 
   export default {
@@ -16,6 +18,7 @@
     },
     components: {
       Intro,
+      statsViewer,
       devCredits
     }
   }
