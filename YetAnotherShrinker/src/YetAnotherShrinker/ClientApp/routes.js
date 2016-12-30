@@ -1,7 +1,7 @@
 
-import ShrinkPlace from './layouts/ShrinkPlace'
-import StatsPlace from './layouts/StatsPlace'
-import NotFound from './layouts/NotFound'
+import ShrinkPlace from './layouts/shrinkPlace'
+import StatsPlace from './layouts/statsPlace'
+import NotFound from './layouts/notFound'
 
 const main = [
   {
