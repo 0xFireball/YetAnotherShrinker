@@ -110,5 +110,5 @@
 <style scoped>
 #line-chart {
   height: 400px;
-}
+} 
 </style>
