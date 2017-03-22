@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5B3BC8C9-D69B-4F45-A988-17DA87BE7CE2}"
 EndProject
@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "YetAnotherShrinker", "src\YetAnotherShrinker\YetAnotherShrinker.xproj", "{36C9D34E-E9BD-4682-8961-56F10C9DE926}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YetAnotherShrinker", "YetAnotherShrinker\YetAnotherShrinker.csproj", "{B8BBF22B-9451-4582-948E-F321F7BD88A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,15 +18,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{36C9D34E-E9BD-4682-8961-56F10C9DE926}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{36C9D34E-E9BD-4682-8961-56F10C9DE926}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{36C9D34E-E9BD-4682-8961-56F10C9DE926}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{36C9D34E-E9BD-4682-8961-56F10C9DE926}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8BBF22B-9451-4582-948E-F321F7BD88A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8BBF22B-9451-4582-948E-F321F7BD88A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8BBF22B-9451-4582-948E-F321F7BD88A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8BBF22B-9451-4582-948E-F321F7BD88A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{36C9D34E-E9BD-4682-8961-56F10C9DE926} = {5B3BC8C9-D69B-4F45-A988-17DA87BE7CE2}
+		{B8BBF22B-9451-4582-948E-F321F7BD88A3} = {5B3BC8C9-D69B-4F45-A988-17DA87BE7CE2}
 	EndGlobalSection
 EndGlobal
